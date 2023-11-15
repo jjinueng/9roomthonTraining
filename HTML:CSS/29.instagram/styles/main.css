@@ -1,0 +1,135 @@
+.main-container{
+    background-color: #FFFFFF;
+    margin-top: 44px;
+    margin-bottom: 44px;
+    display: flex;
+}
+
+.content-container{
+    width: 100%;
+    max-width: 935px;
+    padding: 0 0 8px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.content{
+    width: 100%;
+    max-width: 614px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.stories{
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 16px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.stories::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #DBDBDB;
+}
+
+.posts{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+@media (min-width: 620px){
+    .content-container{
+        padding: 30px 0 24px;
+    }
+    .content{
+        gap: 24px;
+    }
+    .stories{
+        border: 1px solid #DBDBDB;
+        border-radius: 4px;
+    }
+    .stories::after{
+        content: none;
+    }
+    .posts{
+        gap: 24px;
+    }
+    .post{
+        border: 1px solid #DBDBDB;
+        border-radius: 4px;
+    }
+}
+@media(min-width: 1024px){
+    .main-container{
+        background-color: #fafafa;
+    }
+    .content{
+        margin: unset;
+    }
+}
+
+/* story */
+.story{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.story__avatar{
+    position: relative;
+}
+
+.story__border{
+    width: 64px;
+    height: 64px;
+    fill: none;
+    stroke: #c7c7c7;
+    stroke-width: 1.5;
+}
+
+.story__picture{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.story__user{
+    font-size: 12px;
+    font-weight: 400;
+    color: #999999;
+    text-transform: lowercase;
+    max-width: 72px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stories__content{
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 16px;
+    padding: 0 16px;
+    position: relative;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.stories__content::-webkit-scrollbar{
+    display: none;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <style>
+        .element {
+            display: inline-block;
+            background-color: lightblue;
+            height: 100px;
+            width: 100px;
+            animation: roll 3s infinite;
+            transform: rotate(30deg);
+        }
+
+        @keyframes roll {
+            0% {
+                transform: rotate(0);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="element"></div>
+    <div class="element"></div>
+    <div class="element"></div>
+</body>
+
+</html>

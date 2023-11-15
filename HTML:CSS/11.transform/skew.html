@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <style>
+        .element {
+            display: inline-block;
+            background-color: lightblue;
+            height: 100px;
+            width: 100px;
+            animation: skew 3s infinite;
+            transform: skew(20deg);
+        }
+
+        @keyframes skew {
+            0% {
+                transform: skewX(20deg);
+                /* transform: skewY(20deg); */
+                /* transform: skew(20deg, 20deg); */
+            }
+
+            100% {
+                transform: skewX(-20deg);
+                /* transform: skewY(-20deg); */
+                /* transform: skew(-20deg, -20deg); */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="element"></div>
+    <div class="element"></div>
+    <div class="element"></div>
+</body>
+
+</html>
