@@ -34,7 +34,7 @@
 .side-menu__user-info a{
     font-size: 14px;
     font-weight: 500;
-    color: #262626;
+    color: var(--text-dark);
     text-decoration: none;
     max-width: 180px;
     text-overflow: ellipsis;
@@ -45,7 +45,7 @@
 .side-menu__user-info a {
     font-size: 14px;
     font-weight: 500;
-    color: #262626;
+    color: var(--text-dark);
     text-decoration: none;
     text-transform: lowercase;
     max-width: 180px;
@@ -57,7 +57,7 @@
 .side-menu__user-info span{
     font-size: 14px;
     font-weight: 400;
-    color: #999999;
+    color: var(--text-light);
     max-width: 180px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -86,7 +86,7 @@
 .side-menu__suggestions-header h2{
     font-size: 14px;
     font-weight: 500;
-    color: #999999;
+    color: var(--text-light);
 }
 
 .side-menu__suggestions-header button{
@@ -95,7 +95,7 @@
     cursor: pointer;
     font-size: 12px;
     font-weight: 500;
-    color: #262626;
+    color: var(--text-dark);
 }
 
 .side-menu__suggestions-content{
@@ -132,7 +132,7 @@
 .side-menu__suggestion-info a{
     font-size: 14px;
     font-weight: 500;
-    color: #262626;
+    color: var(--text-dark);
     text-decoration: none;
     text-transform: lowercase;
     max-width: 180px;
@@ -148,7 +148,7 @@
 .side-menu__suggestion-info span{
     font-size: 12px;
     font-weight: 400;
-    color: #999999;
+    color: var(--text-light);
     max-width: 180px;
     text-overflow: ellipsis;
     overflow: hidden;

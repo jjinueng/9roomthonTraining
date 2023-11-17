@@ -1,14 +1,14 @@
 .header{
     width: 100%;
     height: 44px;
-    background-color: #FFFFFF;
+    background-color: var(--primary);
     display: flex;
     justify-content: center;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 2;
-    border-bottom: 1px solid #DBDBDB;
+    border-bottom: 1px solid var(--border);
 }
 
 .header__content{
@@ -50,19 +50,19 @@
 .header__search input{
     width: 100%;
     height: 100%;
-    background-color: #FAFAFA;
+    background-color: var(--secondary);
     padding: 4px 10px 4px 20px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid var(--border);
     border-radius: 4px;
     font-size: 12px;
     font-weight: 300;
-    color: #999999;
+    color: var(--text-light);
     text-overflow: hidden;
     white-space: nowrap;
 }
 
 .header__search input:focus{
-    color: #262626;
+    color: var(--text-dark);
 }
 
 .header__buttons{
@@ -74,4 +74,26 @@
 .profile__picture{
     width: 24px;
     border-radius: 50%;
+}
+
+.header__theme-button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.header__theme-button-sun{
+    display: none;
+}
+
+.header__theme-button-moon{
+    display: unset;
+}
+
+:root.darkTheme .header__theme-button-sun{
+    display: unset;
+}
+
+:root.darkTheme .header__theme-button-moon{
+    display: none;
 }

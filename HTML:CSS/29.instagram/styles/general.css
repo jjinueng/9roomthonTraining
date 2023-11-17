@@ -13,3 +13,25 @@ body{
 img{
     max-width: 100%;
 }
+
+:root{
+    --primary: #FFFFFF;
+    --secondary: #FAFAFA;
+    --border: #DBDBDB;
+
+    --story-border: #c7c7c7;
+
+    --text-dark: #262626;
+    --text-light: #999999;
+}
+
+:root.darkTheme{
+    --primary: #000000;
+    --secondary: #050505;
+    --border: #262626;
+
+    --story-border: #707070;
+
+    --text-dark: #FAFAFA;
+    --text-light: #999999;
+}
