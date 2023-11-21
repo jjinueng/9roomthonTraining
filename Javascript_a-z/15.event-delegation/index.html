@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Delegation</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <div id="buttons">
+        <button class="buttonClass">Click me</button>
+        <button class="buttonClass">Click me</button>
+    </div>
+    <script>
+        // const buttons = document.getElementsByClassName("buttonClass");
+        // for (const button of buttons) {
+        //     button.addEventListener("click", () => alert('clicked'));
+        // }
+
+
+        // 위 코드로 작성을 하게 되면 스크립트에서 새로 생성된 버튼은 클릭 이벤트가 동작하지 않는다.
+        // 클릭 이벤트가 동작하게 하려면?
+
+        const buttonList = document.querySelector('#buttons');
+        buttons.addEventListener('click', () => alert('clicked')); // 해당 코드로 변경해주면 된다.
+
+        const button = document.createElement('button');
+        button.setAttribute('class', 'buttonClass');
+        button.innerText = 'Click me';
+        buttonList.appendChild(button);
+    </script>
+</body>
+</html>
+ 
