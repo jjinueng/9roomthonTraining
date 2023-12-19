@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 400px;
+            height: 300px;
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://via.placeholder.com/400x300" 
+    data-src="https://ik.imagekit.io/demo/img/image4.jpeg?tr-w-400,h-300"/>
+    <img src="https://via.placeholder.com/400x300" 
+    data-src="https://ik.imagekit.io/demo/img/image4.jpeg?tr-w-400,h-300"/>
+    <img src="https://via.placeholder.com/400x300" 
+    data-src="https://ik.imagekit.io/demo/img/image4.jpeg?tr-w-400,h-300"/>
+    <img src="https://via.placeholder.com/400x300" 
+    data-src="https://ik.imagekit.io/demo/img/image4.jpeg?tr-w-400,h-300"/>
+
+    <script>
+        const observer = new IntersectionObserver(function(entries, observer){
+            console.log(entries)
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.src = entry.target.dataset.src
+                    observer.unobserve(entry.target)
+                }
+            })
+        },{
+            threshold:1,
+        })
+        const imgs = document.querySelectorAll('img');
+        imgs.forEach(img => {
+            observer.observe(img);
+        })
+
+    </script>
+</body>
+
+</html>
