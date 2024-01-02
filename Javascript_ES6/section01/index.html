@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
+    <script src="https://unpkg.com/fxjs/dist/fx.es5.js"></script>
+</head>
+
+<body>
+
+    # 함수형 프로그래밍과 Javascript ES6+ 응용편
+
+    1. 홀수 n개 더하기
+    <script>
+        function f1(limit, list) {
+            let acc = 0;
+            for (const a of list) {
+                if (a % 2) {
+                    const b = a * a;
+                    acc += b;
+                    if (--limit == 0) {
+                        break;
+                    }
+                }
+            }
+            console.log(acc);
+        }
+        f1(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    </script>
+    2. if를 filter로
+    <script>
+        const { L, C } = window._;
+        function f2(limit, list) {
+            let acc = 0;
+            for (const a of L.filter(a => a % 2, list)) {
+                const b = a * a;
+                acc += b;
+                if (--limit == 0) {
+                    break;
+                }
+            }
+            console.log(acc);
+        }
+        f2(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    </script>
+    3. 값 변화 후 변수 할당을 map으로
+    <script>
+        function f3(limit, list) {
+            let acc = 0;
+            for (const a of L.map(a => a * a, L.filter(a => a % 2, list))) {
+                acc += a;
+                if (--limit == 0) {
+                    break;
+                }
+            }
+            console.log(acc);
+        }
+        f3(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    </script>
+    4. break를 take로
+    <script>
+        function f4(limit, list) {
+            let acc = 0;
+            for (const a of L.take(limit, L.map(a => a * a, L.filter(a => a % 2, list)))) {
+                acc += a;
+            }
+            console.log(acc);
+        }
+        f4(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    </script>
+    5. 축약 및 합산을 reduce로
+    <script>
+        function f5(limit, list) {
+            _.go(
+                list,
+                L.filter(a => a % 2),
+                L.map(a => a * a),
+                L.take(limit),
+                _.reduce((a, b) => a + b),
+                console.log
+            )
+        }
+        f5(3, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    </script>
+    6. while을 range로
+    <script>
+        function f6(end) {
+            _.each(console.log, L.range(end));
+        }
+        f6(10);
+    </script>
+    7. 효과를 each로 구분
+    <script>
+        function f7(end) {
+            _.go(
+                L.range(1, end, 2),
+                _.each(console.log));
+            // each가 오면 무언가 변화를 준다는 것을 알 수 있다.
+        }
+        f7(10);
+    </script>
+    8. 추억의 별 그리기
+    <script>
+        _.go(
+            L.range(1, 6),
+            L.map(L.range),
+            L.map(L.map(_ => '*')),
+            L.map(_.reduce((a, b) => `${a}${b}`)),
+            _.reduce((a, b) => `${a}\n${b}`),
+            console.log
+        );
+
+        // _.go(
+        //     L.range(1, 6),
+        //     L.map(s=>_.go(
+        //         L.range(s),
+        //         L.map(_=>'*'),
+        //         _.reduce((a,b)=>`${a}${b}`))),
+        //     _.reduce((a,b)=>`${a}\n${b}`),
+        //     console.log
+        // );
+    </script>
+    9. 추억의 구구단
+    <script>
+        _.go(
+            L.range(2, 10),
+            L.map(a => _.go(
+                L.range(1, 10),
+                L.map(b => `${a} * ${b} = ${a*b}`),
+                _.reduce((a, b) => `${a}\n${b}`)
+            )),
+            _.reduce((a, b) => `${a}\n\n${b}`),
+            console.log
+        );
+    </script>
+</body>
+
+</html>

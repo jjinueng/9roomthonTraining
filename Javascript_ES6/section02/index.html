@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
+    <script src="https://unpkg.com/fxjs/dist/fx.es5.js"></script>
+</head>
+
+<body>
+
+    # 명령형 습관 지우기 - 만능 reduce ? NO!
+
+    1. reduce + 복잡한 함수 + acc 보다 map + 간단한 함수 + reduce
+
+    <script>
+        const { L, C } = window._;
+        const users = [
+            { name: 'AA', age: 35 },
+            { name: 'BB', age: 26 },
+            { name: 'CC', age: 28 },
+            { name: 'DD', age: 34 },
+            { name: 'EE', age: 23 },
+        ];
+
+        console.log(_.reduce((total, u) => total + u.age, 0, users));
+
+        const add = (a, b) => a + b;
+        console.log(_.reduce(add, L.map(u => u.age, users)));
+
+        const ages = L.map(u => u.age);
+        console.log(_.reduce(add, ages(users)));
+    </script>
+    2. reduce 하나 보다 map + filter + reduce
+    <script>
+        console.log(_.reduce((total, u) => u.age >= 30 ? total : total + u.age, 0, users));
+
+        console.log(
+            _.reduce(add,
+                L.map(u => u.age,
+                    L.filter(u => u.age < 30, users))));
+
+        console.log(
+            _.reduce(add,
+                L.filter(n => n < 30,
+                    L.map(u => u.age, users))));
+    </script>
+
+    3. query, queryToObject
+</body>
+
+</html>
