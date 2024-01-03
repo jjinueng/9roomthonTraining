@@ -49,7 +49,64 @@
                     L.map(u => u.age, users))));
     </script>
 
-    3. query, queryToObject
+    3. query
+    <script>
+        const obj1 = {
+            a: 1,
+            b: undefined,
+            c: 'CC',
+            d: 'DD',
+        }
+        // a=1&c=CC&d=DD
+
+        function query1(obj) {
+            let res = '';
+            for (const k in obj) {
+                const v = obj[k];
+                if (v === undefined) continue;
+                if (res !== '') res += '&';
+                res += `${k}=${v}`;
+            }
+            return res;
+        }
+        console.log(query1(obj1));
+
+        function query2(obj) {
+            return Object
+                .entries(obj)
+                .reduce((query, [k, v], i) => {
+                    if (v === undefined) return query;
+                    return `${query}${i > 0 ? '&' : ''}${k}=${v}`;
+                }, '');
+        }
+        console.log(query2(obj1));
+
+        // const query3 = obj =>
+        //     join('&',
+        //         map(([k, v]) => `${k}=${v}`,
+        //             filter(([k, v]) => v !== undefined,
+        //                 Object.entries(obj))));
+        // console.log(query3(obj1));
+
+        // const query4 = _.pipe(
+        //     Object.entries,
+        //     L.reject(([_, v]) => v === undefined),
+        //     L.map(join('=')),
+        //     join('&'));
+        // console.log(query4(obj1));
+    </script>
+    4. queryToObject
+    <script>
+        const split = _.curry((sep, str) => str.split(sep));
+
+        const queryToObject = _.pipe(
+            split('&'),
+            L.map(split('=')),
+            L.map(([k, v]) => ({ [k]: v })),
+            _.reduce(Object.assign));
+    
+        console.log(queryToObject('a=1&b=2&c=3'));
+    </script>
 </body>
 
 </html>

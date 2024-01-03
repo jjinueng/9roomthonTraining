@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
+    <script src="https://unpkg.com/fxjs/dist/fx.es5.js"></script>
+    <script>const { L, C } = window._;</script>
+</head>
+
+<body>
+
+    # 안전한 합성
+
+    1. 맵으로 합성하기
+    <script>
+        const f = x => x + 10;
+        const g = x => x - 5;
+        const fg = x => f(g(x));
+        console.log(fg(10));
+
+        _.go(10,
+            fg,
+            console.log);
+
+        _.go([10],
+            L.map(fg),
+            _.each(console.log));
+        _.go([], // 값이 없어도 에러가 나지 않는다.
+            L.map(fg),
+            _.each(console.log));
+    </script>
+
+    2. find 대신 L.filter 써보기
+    <script>
+        const users = [
+            { name: 'AA', age: 35 },
+            { name: 'BB', age: 26 },
+            { name: 'CC', age: 28 },
+            { name: 'DD', age: 34 },
+            { name: 'EE', age: 23 },
+        ];
+        
+        const user = _.find(u => u.name == 'BB', users);
+        if(user) console.log(user.age);
+
+        _.go(users,
+        L.filter(u => u.name == 'AA'),
+        L.map(u => u.age),
+        L.take(1),
+        _.each(console.log));
+    </script>
+</body>
+
+</html>
