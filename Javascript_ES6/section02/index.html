@@ -8,16 +8,34 @@
 
     <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
     <script src="https://unpkg.com/fxjs/dist/fx.es5.js"></script>
+    <script>const { L, C } = window._;</script>
 </head>
 
 <body>
 
-    # 명령형 습관 지우기 - 만능 reduce ? NO!
+    # 안전한 합성
 
-    1. reduce + 복잡한 함수 + acc 보다 map + 간단한 함수 + reduce
-
+    1. 맵으로 합성하기
     <script>
-        const { L, C } = window._;
+        const f = x => x + 10;
+        const g = x => x - 5;
+        const fg = x => f(g(x));
+        console.log(fg(10));
+
+        _.go(10,
+            fg,
+            console.log);
+
+        _.go([10],
+            L.map(fg),
+            _.each(console.log));
+        _.go([], // 값이 없어도 에러가 나지 않는다.
+            L.map(fg),
+            _.each(console.log));
+    </script>
+
+    2. find 대신 L.filter 써보기
+    <script>
         const users = [
             { name: 'AA', age: 35 },
             { name: 'BB', age: 26 },
@@ -25,87 +43,15 @@
             { name: 'DD', age: 34 },
             { name: 'EE', age: 23 },
         ];
+        
+        const user = _.find(u => u.name == 'BB', users);
+        if(user) console.log(user.age);
 
-        console.log(_.reduce((total, u) => total + u.age, 0, users));
-
-        const add = (a, b) => a + b;
-        console.log(_.reduce(add, L.map(u => u.age, users)));
-
-        const ages = L.map(u => u.age);
-        console.log(_.reduce(add, ages(users)));
-    </script>
-    2. reduce 하나 보다 map + filter + reduce
-    <script>
-        console.log(_.reduce((total, u) => u.age >= 30 ? total : total + u.age, 0, users));
-
-        console.log(
-            _.reduce(add,
-                L.map(u => u.age,
-                    L.filter(u => u.age < 30, users))));
-
-        console.log(
-            _.reduce(add,
-                L.filter(n => n < 30,
-                    L.map(u => u.age, users))));
-    </script>
-
-    3. query
-    <script>
-        const obj1 = {
-            a: 1,
-            b: undefined,
-            c: 'CC',
-            d: 'DD',
-        }
-        // a=1&c=CC&d=DD
-
-        function query1(obj) {
-            let res = '';
-            for (const k in obj) {
-                const v = obj[k];
-                if (v === undefined) continue;
-                if (res !== '') res += '&';
-                res += `${k}=${v}`;
-            }
-            return res;
-        }
-        console.log(query1(obj1));
-
-        function query2(obj) {
-            return Object
-                .entries(obj)
-                .reduce((query, [k, v], i) => {
-                    if (v === undefined) return query;
-                    return `${query}${i > 0 ? '&' : ''}${k}=${v}`;
-                }, '');
-        }
-        console.log(query2(obj1));
-
-        // const query3 = obj =>
-        //     join('&',
-        //         map(([k, v]) => `${k}=${v}`,
-        //             filter(([k, v]) => v !== undefined,
-        //                 Object.entries(obj))));
-        // console.log(query3(obj1));
-
-        // const query4 = _.pipe(
-        //     Object.entries,
-        //     L.reject(([_, v]) => v === undefined),
-        //     L.map(join('=')),
-        //     join('&'));
-        // console.log(query4(obj1));
-    </script>
-    4. queryToObject
-    <script>
-        const split = _.curry((sep, str) => str.split(sep));
-
-        const queryToObject = _.pipe(
-            split('&'),
-            L.map(split('=')),
-            L.map(([k, v]) => ({ [k]: v })),
-            _.reduce(Object.assign));
-    
-        console.log(queryToObject('a=1&b=2&c=3'));
+        _.go(users,
+        L.filter(u => u.name == 'AA'),
+        L.map(u => u.age),
+        L.take(1),
+        _.each(console.log));
     </script>
 </body>
 
