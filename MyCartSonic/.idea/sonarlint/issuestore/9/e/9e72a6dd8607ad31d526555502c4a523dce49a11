@@ -1,0 +1,6 @@
+
+]	java:S125"<This block of commented-out lines of code should be removed.(Ì¢ÿüÿÿÿÿ8©¾Ì’Í1
+G	java:S106*"+Replace this use of System.out by a logger.(—ÕˆÓ8ª¾Ì’Í1
+G	java:S106,"+Replace this use of System.out by a logger.(™”ÿÌ8ª¾Ì’Í1
+^
+java:S16123"<Replace this lambda with method reference 'Entry::getValue'.(Ó‡±üÿÿÿÿ8’×ã’Í1

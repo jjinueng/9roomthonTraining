@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
+    <script src="https://unpkg.com/fxjs/dist/fx.es5.js"></script>
+    <script>const { L, C } = window._;</script>
+</head>
+
+<body>
+    ## 프론트엔드에서 함수형/이터러블/동시성 프로그래밍
+
+    1.ES6 템플릿 리터럴 활용
+
+    <!-- <script>
+    const a = 10;
+    const b = 5;
+    console.log(`${a} + ${b} = ${a + b}`);
+</script> -->
+
+    2. 이미지 목록 그리기
+    <script>
+        const $ = {};
+
+        $.qs = document.querySelector.bind(document);
+        $.qsa = document.querySelectorAll.bind(document);
+
+        $.qs = (sel, parent) => document.querySelector.bind(sel);
+        $.qsa = (sel, parent) => document.querySelectorAll.bind(sel);
+
+        parent.querySelectorAll(sel);
+
+        $.el = html => {
+            const wrap = document.createElement('div');
+            wrap.innerHTML = html;
+            return wrap.children[0];
+        }
+
+        $.append = _.curry((parent, child) => {
+            parent.appendChild(child);
+        })
+
+
+        const Images = {};
+        Images.fetch = () => new Promise(resolve => setTimeout(() => resolve([
+            { name: "1", url: "https://picsum.photos/200/300?random=1" },
+            { name: "2", url: "https://picsum.photos/200/300?random=2" },
+            { name: "3", url: "https://picsum.photos/200/300?random=3" },
+            { name: "4", url: "https://picsum.photos/200/300?random=4" },
+            { name: "5", url: "https://picsum.photos/200/300?random=5" },
+            { name: "6", url: "https://picsum.photos/200/300?random=6" },
+            { name: "7", url: "https://picsum.photos/200/300?random=7" },
+            { name: "8", url: "https://picsum.photos/200/300?random=8" },
+            { name: "9", url: "https://picsum.photos/200/300?random=9" },
+            { name: "10", url: "https://picsum.photos/200/300?random=10" },
+            { name: "11", url: "https://picsum.photos/200/300?random=11" },
+            { name: "12", url: "https://picsum.photos/200/300?random=12" },
+            { name: "13", url: "https://picsum.photos/200/300?random=13" },
+            { name: "14", url: "https://picsum.photos/200/300?random=14" },
+            { name: "15", url: "https://picsum.photos/200/300?random=15" },
+        ]), 200));
+
+        const string = iter => _.reduce((a, b) => a + b, '', iter);
+
+        _.strMap = _.curry(_.pipe(L.map, string));
+
+        Images.tmpl = imgs => `
+        <div class="images">
+            ${_.strMap(img => `
+                <div class="image">
+                <div class="box"><img src="${img.url}" alt="${img.name}"></div>
+                    <div class="name">${img.name}</div>
+                    <div class="remove">X</div>
+                </div>
+            `, imgs)}
+            </div>
+        `;
+
+        _.go(
+            Images.fetch(),
+            Images.tmpl,
+            $.el,
+            $.append($.qs('body')),
+            el => $.qsa('.image', el),
+            console.log
+        )
+    </script>
+
+
+
+    3. 경고창 만들기
+    - confirm
+    - promise
+    - alert
+    - 중복 제거
+
+    5. 이미지 동시성 다루기
+
+    6. 페이지 띄우기
+</body>
+
+</html>
